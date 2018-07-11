@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequirementGatherTool", "RequirementGatherTool\RequirementGatherTool.csproj", "{9825F5FE-A366-4639-91BE-CC30F099C0D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequirementGatherToolWeb", "RequirementGatherToolWeb\RequirementGatherToolWeb.csproj", "{2A299FF6-E62A-4F53-9D4D-BE95849057F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGTool", "RGTool\RGTool.csproj", "{4A6CA2DB-D76C-43F0-8136-DD6C0D0CAD3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		{9825F5FE-A366-4639-91BE-CC30F099C0D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9825F5FE-A366-4639-91BE-CC30F099C0D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9825F5FE-A366-4639-91BE-CC30F099C0D4}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{2A299FF6-E62A-4F53-9D4D-BE95849057F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A299FF6-E62A-4F53-9D4D-BE95849057F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A299FF6-E62A-4F53-9D4D-BE95849057F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A299FF6-E62A-4F53-9D4D-BE95849057F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A6CA2DB-D76C-43F0-8136-DD6C0D0CAD3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A6CA2DB-D76C-43F0-8136-DD6C0D0CAD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A6CA2DB-D76C-43F0-8136-DD6C0D0CAD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A6CA2DB-D76C-43F0-8136-DD6C0D0CAD3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

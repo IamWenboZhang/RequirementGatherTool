@@ -42,6 +42,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="RequirementGatherToolManifest\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{8c4b9c88-e46e-4375-ab44-16c243822b9b}</SharePointProjectItemId>
     </None>
@@ -50,13 +51,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RequirementGatherToolWeb\RequirementGatherToolWeb.csproj">
-      <Project>{2A299FF6-E62A-4F53-9D4D-BE95849057F7}</Project>
-      <Name>RequirementGatherToolWeb</Name>
+    <ProjectReference Include="..\RGTool\RGTool.csproj">
+      <Project>{4A6CA2DB-D76C-43F0-8136-DD6C0D0CAD3C}</Project>
+      <Name>RGTool</Name>
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <OutputItemType>SharePointWebProjectOutput</OutputItemType>
-      <RoleName>RequirementGatherToolWeb</RoleName>
+      <RoleName>RGTool</RoleName>
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
