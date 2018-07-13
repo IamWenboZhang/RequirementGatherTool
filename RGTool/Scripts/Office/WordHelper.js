@@ -1,4 +1,16 @@
-﻿function search() {
+﻿function getOOXML() {
+    Word.run(function (context) {
+        var ooxml = context.document.body.getOoxml();
+        var html = context.document.body.getHtml();
+        context.sync()
+            .then(function () {
+                var value = ooxml.value;
+                console.log(value);
+            })
+    })
+}
+
+function search() {
     Word.run(function (ctx) {
 
         // Queue a command to search the document for the string "Contoso".
@@ -155,7 +167,8 @@ function getcurrentselection() {
     });
 }
 
-function getParagraph() {
+function getParagraphs(callback) {
+    var paragraphs = [];
     Word.run(function (context) {
         var p = context.document.body.paragraphs;
         //context.load(p);
@@ -170,11 +183,12 @@ function getParagraph() {
                     p.items[i].load("text");
                     ptext[i] = p.items[i].text;
                 }
-                return context.sync()
+                context.sync()
                     .then(function () {
                         for (var i = 0; i < ptext.length; i++) {
-                            console.log(ptext[i]);
+                            paragraphs.push(ptext[i]);
                         }
+                        return callback(paragraphs);
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -284,67 +298,6 @@ function getcatlog() {
     });
 }
 
-function getmenu(callback) {
-    var menu = new Array();
-    var startindex = -1;
-    var endindex = -1;
-    Word.run(function (context) {
-        var paragraphs = context.document.body.paragraphs;
-        //sections.load("items");        
-        context.load(paragraphs, 'body/style');
-        var contents = new Array();
-        context.sync()
-            .then(function () {
-                if (paragraphs.isNullObject) {
-                    return;
-                }
-                for (var i = 0; i < paragraphs.items.length; i++) {
-                    context.load(paragraphs.items[i], "text");
-                }
-                context.sync()
-                    .then(function () {
-                        for (var i = 0; i < paragraphs.items.length; i++) {
-                            var text = paragraphs.items[i].text;
-                            console.log(text);
-                            if (text == "Table of Contents" && startindex == -1) {
-                                startindex = i + 1;
-                            }
-                            if (text == "Introduction" && endindex == -1) {
-                                endindex = i - 1;
-                                break;
-                            }
-                        }
-                        if (startindex != -1 && endindex != -1 && startindex != endindex) {
-                            console.log("Start index is " + startindex + "     End index is " + endindex);
-                            for (i = startindex; i <= endindex; i++) {
-                                menu[i - startindex] = paragraphs.items[i].text;
-                            }
-                            //return menu;
-                            callback(menu);
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    });
-}
 
-function parsedocument(menu) {
-    var sections = [];
-    var sectionIds = [];
-    var sectionNames = [];
-    for (var i = 0; i < menu.length; i++) {
-        if (menu[i].length > 0) {
-            var tmp = menu[i].split("\t");
-            sectionIds.push(tmp[0]);
-            sectionNames.push(tmp[1]);
-            sections[tmp[0]] = tmp[1]
-        }
-    }
-};
 
 

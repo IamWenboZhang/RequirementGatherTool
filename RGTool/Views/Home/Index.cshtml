@@ -16,8 +16,11 @@
     <link rel="stylesheet" href="https://agave.azurewebsites.net/Fabric/css/fabric.components.css">
     <script src="https://agave.azurewebsites.net/Fabric/components/NavBar/Jquery.NavBar.js"></script>
     
+    <script src="~/Scripts/Config/ConfigHelper.js"></script>
     <script src="~/Scripts/FabricUI/MessageBanner.js"></script>
-    <script src="~/Scripts/WordHelper.js" type="text/javascript"></script>
+    <script src="~/Scripts/Office/WordHelper.js"></script>
+    <script src="~/Scripts/Section/SectionHelper.js"></script>
+
 </head>
 <body>
     <div id="content-header">
@@ -29,18 +32,18 @@
     <div id="content-main">
         <div class="padding">
             <div id="sowPanel" class="display:none">
-                <button class="ms-Button ms-Button--compound" id="insertSow" onclick="search()">
+                <button class="ms-Button ms-Button--compound" id="search" onclick="search()">
                     <span class="ms-Button-label">1. Search RFC2119 Keyword</span>
                     <span class="ms-Button-description">Search the wrong references of RFC2119 Keywords</span>
                 </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="insertParagraphs" onclick="getallsections()">
+                <button class="ms-Button ms-Button--compound" id="autogeather" onclick="sectionHelper.autogeather()">
                     <span class="ms-Button-label">2. Auto Gather</span><span class="ms-Button-description">Automatically gather requirement information</span>
                 </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="changePicture" onclick="createexcel('D:\File\Test\Test Worksheet.xlsx','sssssSSS')">
+                <button class="ms-Button ms-Button--compound" id="createexcel" onclick="createexcel('D:\File\Test\Test Worksheet.xlsx','sssssSSS')">
                     <span class="ms-Button-label">3. Create Excel</span><span class="ms-Button-description">Create Excel document</span>
                 </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="getsection" onclick="getmenu(parsedocument)">
-                    <span class="ms-Button-label">3. Create Excel</span><span class="ms-Button-description">Get sections of document</span>
+                <button class="ms-Button ms-Button--compound" id="getsection" onclick="sectionHelper.autogeather()">
+                    <span class="ms-Button-label">4. Test</span><span class="ms-Button-description">Get sections of document</span>
                 </button><br><br>
             </div>
         </div>

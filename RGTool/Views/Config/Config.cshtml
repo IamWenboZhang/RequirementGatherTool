@@ -1,0 +1,29 @@
+﻿@model RGTool.Models.Config
+
+@{
+    ViewBag.Title = "Config";
+}
+<script src="~/Scripts/Config/ConfigHelper.js"></script>
+<div ng-app="TeamBuilder" id="tbPanel">
+    <div ng-controller="ConfigController" id="team">
+        <h3>Config</h3>
+        @*<p>Total Hours: <input type="text" ng-model="hours" /></p>*@
+        TD ShortName:<input id="ip_shortname" type="text" /><br /><br />
+        TD Version:<input id="ip_version" type="text" /><br /><br />
+        TDType:<select id="select_tdtype">
+            <option value="None">None</option>
+            <option value="Block">Block</option>
+            <option value="FileFormat">FileFormat</option>
+            <option value="SOAP">SOAP</option>
+            <option value="WOPI">WOPI</option>
+        </select><br /><br />
+        StartSection:<input id="ip_startsection" type="text" /><br /><br />
+        EndSection:<input id="ip_endsection" type="text" /><br /><br />
+        @*Lead: <select ng-model="lead" ng-options="opt as opt.name for opt in listItems"></select> <br />
+        UI Designer: <select ng-model="ui" ng-options="opt as opt.name for opt in listItems"></select><br />
+        Web Engineer: <select ng-model="eng1" ng-options="opt as opt.name for opt in listItems"></select><br />
+        DB Engineer: <select ng-model="eng2" ng-options="opt as opt.name for opt in listItems"></select><br />*@
+    </div>
+    <button id="set-data" onclick="setconfig()">Set Config</button><br />
+</div>
+
