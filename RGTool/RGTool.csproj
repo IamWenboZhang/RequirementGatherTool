@@ -152,11 +152,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Config.cs" />
+    <Compile Include="Excel\ExcelUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +177,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Common\GatherHelper.js" />
     <Content Include="Scripts\Config\ConfigHelper.js" />
     <Content Include="Scripts\FabricUI\MessageBanner.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -457,6 +460,7 @@
     <Content Include="Scripts\Office\1\zh-tw\office_strings.js" />
     <Content Include="Scripts\Office\1\zh-tw\outlook_strings.debug.js" />
     <Content Include="Scripts\Office\1\zh-tw\outlook_strings.js" />
+    <Content Include="Scripts\Office\ExcelHelper.js" />
     <Content Include="Scripts\Office\metadata\endpoints.xml" />
     <Content Include="Scripts\Office\metadata\features.xml" />
     <Content Include="Scripts\Office\MicrosoftAjax.js" />
@@ -477,11 +481,12 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Config\Config.cshtml" />
+    <Content Include="Views\Excel\Excel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ConfigFile\" />
-    <Folder Include="Excel\" />
+    <Folder Include="Excel\ExcelFile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

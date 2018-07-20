@@ -1,77 +1,135 @@
 ﻿var sectionHelper = {
-    sectionList: [],
+    menuList: [],
     menustartindex: -1,
     menuendindex: -1,
-    autogeather: function () {
-        var callback = function (paragraphs) {
-            if (paragraphs.length > 0) {
-                var menu = new Array();
-                for (var i = 0; i < paragraphs.length; i++) {
-                    if (paragraphs[i] == "Table of Contents" && sectionHelper.menustartindex == -1) {
-                        sectionHelper.menustartindex = i + 1;
-                    }
-                    if (paragraphs[i] == "Introduction" && sectionHelper.menuendindex == -1) {
-                        sectionHelper.menuendindex = i - 1;
-                        break;
-                    }
-                }
-                if (sectionHelper.menustartindex != -1 && sectionHelper.menuendindex != -1 && sectionHelper.menustartindex != sectionHelper.menuendindex) {
-                    for (i = sectionHelper.menustartindex; i <= sectionHelper.menuendindex; i++) {
-                        menu[i - sectionHelper.menustartindex] = paragraphs[i];
-                    }
-                    sectionHelper.sectionList = sectionHelper.parsemenu(menu);
-                    var sections = sectionHelper.getsectioncontents(sectionHelper.sectionList, paragraphs)
-                    return sections;
-                }
+    //getmenu: function () {
+    //    var callback = function (paragraphs) {
+    //        if (paragraphs.length > 0) {
+    //            var menu = new Array();
+    //            for (var i = 0; i < paragraphs.length; i++) {
+    //                if (paragraphs[i] == "Table of Contents" && sectionHelper.menustartindex == -1) {
+    //                    sectionHelper.menustartindex = i + 1;
+    //                }
+    //                if (paragraphs[i] == "Introduction" && sectionHelper.menuendindex == -1) {
+    //                    sectionHelper.menuendindex = i - 1;
+    //                    break;
+    //                }
+    //            }
+    //            if (sectionHelper.menustartindex != -1 && sectionHelper.menuendindex != -1 && sectionHelper.menustartindex != sectionHelper.menuendindex) {
+    //                for (i = sectionHelper.menustartindex; i <= sectionHelper.menuendindex; i++) {
+    //                    menu[i - sectionHelper.menustartindex] = paragraphs[i];
+    //                }
+    //                sectionHelper.menuList = sectionHelper.parsemenu(menu);
+    //                var sections = sectionHelper.getsectioncontents(sectionHelper.menuList, paragraphs)
+    //                return sections;
+    //            }
+    //        }
+    //    }
+    //    var p = getParagraphs(callback);
+    //    return p;
+    //},
+    splitsectioncontent: function (paragraphs, configdata) {
+        var menu = sectionHelper.getmenu(paragraphs);
+        var result = [];
+        var startscetionID = configdata.StartSection;
+        var endsectionID = configdata.EndSection;
+        var sectiontitles = sectionHelper.parsemenu(menu);
+        var sectionitems = sectionHelper.getsectioncontents(sectiontitles, paragraphs, startscetionID, endsectionID);
+        for (var i = 0; i < sectionitems.length; i++) {
+            if (sectionitems[i].ID == "3.1.4.1.1.4") {
+                console.log("列表中存在3.1.4.1.1.4" + sectionitems[i].Name);
+            }
+            var sentences = getsentences(sectionitems[i].Content);
+            for (var j = 0; j < sentences.length; j++) {
+                result.push("[in " + sectionitems[i].ID + " " + sectionitems[i].Name + "] " + sentences[j]);
+                console.log("[in " + sectionitems[i].ID + " " + sectionitems[i].Name + "] " + sentences[j]);
             }
         }
 
-        var p = getParagraphs(callback);
-        return p;
+    },
+
+    getmenu: function (paragraphs) {
+        if (paragraphs.length > 0) {
+            var menu = [];
+            for (var i = 0; i < paragraphs.length; i++) {
+                if (paragraphs[i] == "Table of Contents" && sectionHelper.menustartindex == -1) {
+                    sectionHelper.menustartindex = i + 1;
+                }
+                if (paragraphs[i] == "Introduction" && sectionHelper.menuendindex == -1) {
+                    sectionHelper.menuendindex = i - 1;
+                    break;
+                }
+            }
+            if (sectionHelper.menustartindex != -1 && sectionHelper.menuendindex != -1 && sectionHelper.menustartindex != sectionHelper.menuendindex) {
+                for (i = sectionHelper.menustartindex; i <= sectionHelper.menuendindex; i++) {
+                    menu[i - sectionHelper.menustartindex] = paragraphs[i];
+                }
+                return menu;
+            }
+        }
     },
 
     parsemenu: function (menu) {
-        var sectionItems = [];
-        var sectionIds = [];
-        var sectionNames = [];
+        var sectiontitles = [];
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].length > 0) {
                 var tmp = menu[i].split("\t");
                 var sectionItem = { ID: tmp[0], Name: tmp[1] };
-                sectionItems.push(sectionItem);
+                sectiontitles.push(sectionItem);
             }
         }
-        return sectionItems;
+        return sectiontitles;
     },
-    getsectioncontents: function (sectionItems, paragraphs) {
+
+    getsectioncontents: function (sectiontitles, paragraphs, startsectionID, endsectionID) {
         var config = getconfig();
-        var sections = [];
-        if (paragraphs.length > 0 && sectionItems.length > 0) {
-            for (var j = 0; j < sectionItems.length; j++) {
+        var result = [];
+        var needThisSection = false;
+        var loopstartindex = sectionHelper.menuendindex;
+        if (paragraphs.length > 0 && sectiontitles.length > 0) {
+            for (var j = 0; j < sectiontitles.length; j++) {
                 var startindex = -1;
                 var endindex = -1;
-                for (var i = sectionHelper.menuendindex; i < paragraphs.length; i++) {
-                    if (paragraphs[i] == sectionItems[j].Name && startindex == -1) {
+                for (var i = loopstartindex; i < paragraphs.length; i++) {
+                    if (paragraphs[i] == "Complex Types") {
+                        console.log(i);
+                    }
+                    if (paragraphs[i] == sectiontitles[j].Name && startindex == -1) {
                         startindex = i;
                     }
-                    if (j == sectionItems.length - 1) {
+                    if (j == sectiontitles.length - 1) {
                         endindex = paragraphs.length - 1;
                     }
-                    else if (paragraphs[i] == sectionItems[j + 1].Name && endindex == -1) {
+                    else if (paragraphs[i] == sectiontitles[j + 1].Name && endindex == -1) {
                         endindex = i;
+                        loopstartindex = endindex;
                         break;
                     }
                 }
                 if (startindex != -1 && endindex != -1 && startindex != endindex) {
-                    var contents = [];
-                    for (var k = startindex + 1; k < endindex; k++) {
-                        contents.push(paragraphs[k]);
+                    if (sectiontitles[j].ID == startsectionID && !needThisSection) {
+                        needThisSection = true;
                     }
-                    var section = { ID: sectionItems[j].ID, Name: sectionItems[j].Name, Content: contents };
-                    sections.push(section);
+                    if (needThisSection) {
+                        var contentstr = "";
+                        var contents = [];
+                        for (var k = startindex + 1; k < endindex; k++) {
+                            contentstr += paragraphs[k];
+                            contents.push(paragraphs[k]);
+                        }
+                        //var section = { ID: sectionItems[j].ID, Name: sectionItems[j].Name, Content: contents };
+                        var sectionitem = { ID: sectiontitles[j].ID, Name: sectiontitles[j].Name, Content: contentstr };
+                        result.push(sectionitem);
+                        //sectionHelper.sections.push(section);
+                        if (sectiontitles[j].ID == endsectionID) {
+                            needThisSection = false;
+                            break;
+                        }
+                    }
                 }
             }
-            return sections;
+            //return sectionHelper.sections;
+            return result;
         }
     }
 };

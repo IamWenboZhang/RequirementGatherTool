@@ -35,13 +35,15 @@ namespace RGTool.Models
             return result;
         }
 
-        public static Config ReadConfigfromFile(string configfilepath)
+        public static string ReadConfigfromFile(string configfilepath)
         {
-            Config result = new Config();
+            //Config result = new Config();
+            string result = "";
             try
             {
                 var jsonStr = File.ReadAllText(configfilepath);
-                result = JsonConvert.DeserializeObject<Config>(jsonStr);
+                //result = JsonConvert.DeserializeObject<Config>(jsonStr);
+                result = jsonStr;
             }
             catch(Exception ex)
             {

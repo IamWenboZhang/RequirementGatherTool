@@ -39,9 +39,10 @@ namespace RGTool.Controllers
         }
 
         [HttpGet]
-        public Config GetConfig()
+        public string GetConfig()
         {
-            Config result = new Config();
+            //Config result = new Config();
+            string result = "";
             try
             {
                 string path = Server.MapPath(ConfigFilePath);

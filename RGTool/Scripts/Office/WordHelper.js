@@ -58,36 +58,36 @@ function search() {
 }
 
 
-function getallsections() {
-    Word.run(function (context) {
-        var sections = context.document.sections;
-        //sections.load("items");        
-        context.load(sections, 'body/style');
-        var contents = new Array();
-        context.sync()
-            .then(function () {
-                if (sections.isNullObject) {
-                    return;
-                }
-                for (var i = 0; i < sections.items.length; i++) {
-                    sections.items[i].body.load("text");
-                }
-                return context.sync()
-                    .then(function () {
-                        for (var i = 0; i < sections.items.length; i++) {
-                            contents[i] = sections.items[i].body.text;
-                            console.log(contents[i]);
-                        }
-                    })
-                    .catch(function (error) {
+//function getallsections() {
+//    Word.run(function (context) {
+//        var sections = context.document.sections;
+//        //sections.load("items");        
+//        context.load(sections, 'body/style');
+//        var contents = new Array();
+//        context.sync()
+//            .then(function () {
+//                if (sections.isNullObject) {
+//                    return;
+//                }
+//                for (var i = 0; i < sections.items.length; i++) {
+//                    sections.items[i].body.load("text");
+//                }
+//                return context.sync()
+//                    .then(function () {
+//                        for (var i = 0; i < sections.items.length; i++) {
+//                            contents[i] = sections.items[i].body.text;
+//                            console.log(contents[i]);
+//                        }
+//                    })
+//                    .catch(function (error) {
 
-                    })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    });
-}
+//                    })
+//            })
+//            .catch(function (error) {
+//                console.log(error);
+//            });
+//    });
+//}
 
 function gettables() {
     Word.run(function (context) {
@@ -100,17 +100,27 @@ function gettables() {
                     return;
                 }
                 for (var i = 0; i < tables.items.length; i++) {
-                    context.load(tables.items[i], "rows");
+                    var paragraphbefore = tables.items[i].getParagraphBefore();
+                    var paragraphafter = tables.items[i].getParagraphAfter();
+                    context.load(tables.items[i], "values");
                     context.load(tables.items[i], "rowCount");
-                    context.load(tables.items[i], "tables");
+                    context.load(tables.items[i], "parentBody");
+                    paragraphafter.load("text");
+                    paragraphbefore.load("text");
                 }
-                return context.sync()
+                context.sync()
                     .then(function () {
+                        var t1 = paragraphbefore.text;
+                        var t2 = paragraphafter.text;
                         for (var i = 0; i < tables.items.length; i++) {
-                            var rows = tables.items[i].rows;
-                            rows.items[i].cells.items[i].value;
+                            var rows = tables.items[i].values;
                             var rowcount = tables.items[i].rowCount;
-                            var t = tables.items[i].tables;
+                            var body = tables.items[i].parentBody;
+                            body.load("text");
+                            context.sync().then(function () {
+                                var t = body.text;
+                            })
+                            
                         }
                     })
                     .catch(function (error) {
@@ -120,7 +130,7 @@ function gettables() {
     });
 }
 
-function list() {
+function word_getlist() {
     Word.run(function (context) {
         var lists = context.document.body.lists;
         lists.load("items");
@@ -167,11 +177,10 @@ function getcurrentselection() {
     });
 }
 
-function getParagraphs(callback) {
+function getParagraphs(callback, configdata) {
     var paragraphs = [];
     Word.run(function (context) {
         var p = context.document.body.paragraphs;
-        //context.load(p);
         p.load("items");
         context.sync()
             .then(function () {
@@ -188,14 +197,14 @@ function getParagraphs(callback) {
                         for (var i = 0; i < ptext.length; i++) {
                             paragraphs.push(ptext[i]);
                         }
-                        return callback(paragraphs);
+                        return callback(paragraphs, configdata);
                     })
                     .catch(function (error) {
                         console.log(error);
                     })
             })
             .catch(function (error) {
-                console.log(error);
+                console.log("getParagraphs"+error);
             })
       
     });

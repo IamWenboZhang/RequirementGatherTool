@@ -1,4 +1,4 @@
-﻿function setconfig() {
+﻿function insertExcel() {
     $.ajax({
         type: "post",
         url: "/Config/SetConfig",
@@ -15,27 +15,8 @@
         success: function (data) {
             console.log(data);
         },
-        error: function (error){
+        error: function (error) {
             console.log(error);
         }
     });
-}
-
-function getconfig(callback) {
-    $.ajax({
-        type: "get",
-        url: "Config/GetConfig",
-        async: false,
-        cache: false,
-        success: function (data) {
-            callback(data);
-        },
-        error: function (error) {
-            console.log("getconfig"+error);
-        }
-    });
-}
-
-function parseconfig(configdata) {
-
 }

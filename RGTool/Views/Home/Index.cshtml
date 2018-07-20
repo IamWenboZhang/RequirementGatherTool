@@ -15,11 +15,7 @@
     <link rel="stylesheet" href="https://agave.azurewebsites.net/Fabric/css/fabric.min.css">
     <link rel="stylesheet" href="https://agave.azurewebsites.net/Fabric/css/fabric.components.css">
     <script src="https://agave.azurewebsites.net/Fabric/components/NavBar/Jquery.NavBar.js"></script>
-    
-    <script src="~/Scripts/Config/ConfigHelper.js"></script>
-    <script src="~/Scripts/FabricUI/MessageBanner.js"></script>
-    <script src="~/Scripts/Office/WordHelper.js"></script>
-    <script src="~/Scripts/Section/SectionHelper.js"></script>
+
 
 </head>
 <body>
@@ -36,13 +32,13 @@
                     <span class="ms-Button-label">1. Search RFC2119 Keyword</span>
                     <span class="ms-Button-description">Search the wrong references of RFC2119 Keywords</span>
                 </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="autogeather" onclick="sectionHelper.autogeather()">
+                <button class="ms-Button ms-Button--compound" id="autogeather" onclick="autogather()">
                     <span class="ms-Button-label">2. Auto Gather</span><span class="ms-Button-description">Automatically gather requirement information</span>
                 </button><br><br>
                 <button class="ms-Button ms-Button--compound" id="createexcel" onclick="createexcel('D:\File\Test\Test Worksheet.xlsx','sssssSSS')">
                     <span class="ms-Button-label">3. Create Excel</span><span class="ms-Button-description">Create Excel document</span>
                 </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="getsection" onclick="sectionHelper.autogeather()">
+                <button class="ms-Button ms-Button--compound" id="getsection" onclick="gettables()">
                     <span class="ms-Button-label">4. Test</span><span class="ms-Button-description">Get sections of document</span>
                 </button><br><br>
             </div>
@@ -50,3 +46,9 @@
     </div>
 
 </body>
+
+<script src="~/Scripts/Office/ExcelHelper.js"></script>
+<script src="~/Scripts/Office/WordHelper.js"></script>
+<script src="~/Scripts/Section/SectionHelper.js"></script>
+<script src="~/Scripts/Config/ConfigHelper.js"></script>
+<script src="~/Scripts/Common/GatherHelper.js"></script>
