@@ -9,11 +9,12 @@
             "startsection": document.getElementById("ip_startsection").value,
             "endsection": document.getElementById("ip_endsection").value
         },
-        async: false,
+        async: true,
         cache: false,
         datatype: "json",
         success: function (data) {
             console.log(data);
+            autogather(data);
         },
         error: function (error){
             console.log(error);

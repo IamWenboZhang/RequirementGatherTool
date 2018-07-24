@@ -1,4 +1,5 @@
-﻿using RGTool.Models;
+﻿using Newtonsoft.Json;
+using RGTool.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,15 @@ namespace RGTool.Controllers
         }
 
         [HttpPost]
-        public bool SetConfig(string shortname,string version,TypesofTD type, string startsection,string endsection)
+        public string SetConfig(string shortname,string version,TypesofTD type, string startsection,string endsection)
         {
-            bool result = false;
+            string result = String.Empty;
             try
             {
                 string path = Server.MapPath(ConfigFilePath);
                 Config config = new Config() { TDShortName = shortname, TDVersion = version, TDType = type, StartSection = startsection, EndSection = endsection };
-                result = ConfigUtil.SavetoFile(config, path);
+                //result = ConfigUtil.SavetoFile(config, path);
+                result = JsonConvert.SerializeObject(config);
                 return result;
             }
             catch(Exception ex)

@@ -23,9 +23,13 @@
     return sentences;
 }
 
-function autogather() {
-    getconfig(function (data) {
-        var jsonobj = jQuery.parseJSON(data);
-        getParagraphs(sectionHelper.splitsectioncontent, jsonobj);
-    });   
+//function autogather() {
+//    getconfig(function (data) {
+//        var jsonobj = jQuery.parseJSON(data);
+//        getParagraphs(sectionHelper.splitsectioncontent, jsonobj);
+//    });   
+//}
+function autogather(data) {
+    var jsonobj = jQuery.parseJSON(data);
+    getParagraphs(sectionHelper.splitsectioncontent, jsonobj);
 }

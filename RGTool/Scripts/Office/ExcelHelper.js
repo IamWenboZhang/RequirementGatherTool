@@ -1,13 +1,13 @@
-﻿function insertExcel() {
+﻿function insertExcel(jsonStr,configJson) {
+    jsonStr = escape(jsonStr);
+    configdata = escape(configJson);
     $.ajax({
         type: "post",
-        url: "/Config/SetConfig",
+        url: "/Excel/CreateExcel",
         data: {
-            "shortname": document.getElementById("ip_shortname").value,
-            "version": document.getElementById("ip_version").value,
-            "type": document.getElementById("select_tdtype").value,
-            "startsection": document.getElementById("ip_startsection").value,
-            "endsection": document.getElementById("ip_endsection").value
+            "templateName": "MS-XXXX_RequirementSpecification.xlsx",
+            "JsonContent": jsonStr,
+            "Configdata": configJson,
         },
         async: false,
         cache: false,

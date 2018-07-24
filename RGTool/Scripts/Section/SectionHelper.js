@@ -31,21 +31,22 @@
     splitsectioncontent: function (paragraphs, configdata) {
         var menu = sectionHelper.getmenu(paragraphs);
         var result = [];
-        var startscetionID = configdata.StartSection;
-        var endsectionID = configdata.EndSection;
         var sectiontitles = sectionHelper.parsemenu(menu);
-        var sectionitems = sectionHelper.getsectioncontents(sectiontitles, paragraphs, startscetionID, endsectionID);
+        var sectionitems = sectionHelper.getsectioncontents(sectiontitles, paragraphs, configdata.StartSection, configdata.EndSection);
+        var index = 0; 
         for (var i = 0; i < sectionitems.length; i++) {
-            if (sectionitems[i].ID == "3.1.4.1.1.4") {
-                console.log("列表中存在3.1.4.1.1.4" + sectionitems[i].Name);
-            }
             var sentences = getsentences(sectionitems[i].Content);
             for (var j = 0; j < sentences.length; j++) {
-                result.push("[in " + sectionitems[i].ID + " " + sectionitems[i].Name + "] " + sentences[j]);
-                console.log("[in " + sectionitems[i].ID + " " + sectionitems[i].Name + "] " + sentences[j]);
+                //result.push("[in " + sectionitems[i].ID + " " + sectionitems[i].Name + "] " + sentences[j]);
+                index++;
+                var _content = "[in " + sectionitems[i].Name + "] " + sentences[j];
+                var ExcelItem = { "ID": index, "RequirementID": "R" + index, "SectionID": sectionitems[i].ID, "Itemcontent": _content, "InformaltiveorNormaltive": "Normaltive", "ServerorClient": "Server" };
+                result.push(ExcelItem);
             }
         }
-
+        var jsonstr = JSON.stringify(result);
+        var configJson = JSON.stringify(configdata);
+        insertExcel(jsonstr, configJson);
     },
 
     getmenu: function (paragraphs) {
